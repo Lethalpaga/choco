@@ -75,7 +75,10 @@ namespace chocolatey.infrastructure.app.builders
             var sources = new StringBuilder();
             foreach (var source in configFileSettings.Sources.or_empty_list_if_null())
             {
-                sources.AppendFormat("{0};", source.Value);
+                if (!source.Disabled)
+                {
+                    sources.AppendFormat("{0};", source.Value);
+                }
             }
             if (sources.Length != 0)
             {
